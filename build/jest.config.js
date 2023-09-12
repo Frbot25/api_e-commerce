@@ -90,7 +90,7 @@ const config = {
     // The root directory that Jest should scan for tests and modules within
     // rootDir: undefined,
     // A list of paths to directories that Jest should use to search for files in
-    roots: ['<rootDir>/'],
+    roots: ['<rootDir>/src'],
     // Allows you to use a custom runner instead of Jest's default test runner
     // runner: "jest-runner",
     // The paths to modules that run some code to configure or set up the testing environment before each test
@@ -126,12 +126,12 @@ const config = {
     // transform: undefined,
     // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
     //transformIgnorePatterns: ['\\\\node_modules\\\\', '\\.pnp\\.[^\\\\]+$'],
-    // transform: {
-    //   '^.+\\.(ts|tsx)$': 'ts-jest',
-    // },
     transform: {
-        '\\.ts$': '<rootDir>/node_modules/ts-jest', // Use <rootDir> .
+        '^.+\\.(ts|tsx)$': 'ts-jest',
     },
+    // transform: {
+    //   '\\.ts$': '<rootDir>/node_modules/ts-jest', // Use <rootDir> .
+    // },
     // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
     // unmockedModulePathPatterns: undefined,
     // Indicates whether each individual test should be reported during the run

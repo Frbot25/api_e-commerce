@@ -7,13 +7,31 @@ require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
+const router_1 = __importDefault(require("./router"));
+const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const port = process.env.PORT || 8100;
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use((0, helmet_1.default)());
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
+const swaggerOptions = {
+    definition: {
+        info: {
+            title: 'Project E-commerce Documentation.',
+            description: 'Documentation for the Project E-commerce API',
+            contact: {
+                name: 'Frédéric Botella',
+            },
+            version: '1.0.0',
+        },
+    },
+    apis: ['**/*.ts'],
+};
+const swaggerDocs = (0, swagger_jsdoc_1.default)(swaggerOptions);
+app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocs));
+app.use('/api', router_1.default);
 app.listen(port, () => {
     console.log(`Server started at http://localhost:${port}`);
 });
