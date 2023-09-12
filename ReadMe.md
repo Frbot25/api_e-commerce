@@ -7,9 +7,9 @@
 ```javascript
 npm i
 ```
+
 ### run
+
 ```javascript
 npx run dev
 ```
-
-
