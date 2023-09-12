@@ -12,6 +12,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const swaggerOptions: Options = {
+  openapi: 3.0,
   definition: {
     info: {
       title: 'Project E-commerce Documentation.',
@@ -21,6 +22,12 @@ const swaggerOptions: Options = {
       },
       version: '1.0.0',
     },
+    servers: [
+      {
+        url: 'https://localhost:8100',
+      },
+    ],
+    schemes: ['http', 'https'],
   },
   apis: ['**/*.ts'],
 };
