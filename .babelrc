@@ -1,0 +1,13 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": "commonjs"
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": ["module:@babel/plugin-transform-typescript"],
+  "transformIgnorePatterns": ["node_modules/(?!variables/.*)"]
+}
