@@ -1,0 +1,29 @@
+:
+:
+:
+HAS, 11 ITEMS, 1N CATEGORIES
+CATEGORIES:title, description, created_At, updated_At
+
+:
+TAGS:name, description, created_At, updated_At
+FOURNIR, 1N TAGS, 1N ITEMS
+ITEMS:name, description, images, created_At, updated_At
+:
+
+ORDERS:title, description, status, quantity, price,total_quantity, total_price, created_At, updated_At
+CREATE, 11 ORDERS, 0N USERS
+USERS:firstname, lastname, email, adress, cp, city, country, password,image_user, verified_email, created_At, updated_At
+BELONG, 0N USERS, 11 ITEMS
+:
+
+:
+:
+REQUÉRIR, 11 USERS, 1N ROLES
+:
+:
+
+:
+:
+ROLES:type, description, created_At, updated_At
+:
+:

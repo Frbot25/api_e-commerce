@@ -1,0 +1,43 @@
+{
+  "width": 547,
+  "height": 728,
+  "cx": [
+    [ "HAS", 394 ],
+    [ "CATEGORIES", 492 ],
+    [ "TAGS", 169 ],
+    [ "FOURNIR", 281 ],
+    [ "ITEMS", 394 ],
+    [ "ORDERS", 57 ],
+    [ "CREATE", 169 ],
+    [ "USERS", 281 ],
+    [ "BELONG", 394 ],
+    [ "REQUÉRIR", 281 ],
+    [ "ROLES", 281 ]
+  ],
+  "cy": [
+    [ "HAS", 60 ],
+    [ "CATEGORIES", 60 ],
+    [ "TAGS", 195 ],
+    [ "FOURNIR", 195 ],
+    [ "ITEMS", 195 ],
+    [ "ORDERS", 398 ],
+    [ "CREATE", 398 ],
+    [ "USERS", 398 ],
+    [ "BELONG", 398 ],
+    [ "REQUÉRIR", 567 ],
+    [ "ROLES", 668 ]
+  ],
+  "shift": [
+    [ "HAS,ITEMS,0", 0 ],
+    [ "HAS,CATEGORIES,0", 0 ],
+    [ "FOURNIR,TAGS,0", 0 ],
+    [ "FOURNIR,ITEMS,0", 0 ],
+    [ "CREATE,ORDERS,0", 0 ],
+    [ "CREATE,USERS,0", 0 ],
+    [ "BELONG,USERS,0", 0 ],
+    [ "BELONG,ITEMS,0", 0 ],
+    [ "REQUÉRIR,USERS,0", 0 ],
+    [ "REQUÉRIR,ROLES,0", 0 ]
+  ],
+  "ratio": []
+}

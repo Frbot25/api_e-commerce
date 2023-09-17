@@ -26,7 +26,7 @@ const joi_1 = __importDefault(require("joi"));
 const validateLogin = (input) => {
     const schema = joi_1.default.object().keys({
         email: joi_1.default.string()
-            .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+            .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'fr'] } })
             .required(),
         password: joi_1.default.string()
             .required()

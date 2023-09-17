@@ -2,6 +2,7 @@ import express from 'express';
 import { validateLogin } from './services/joi';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ObjectSchema } from 'joi';
+import pool from './database';
 
 const router = express.Router();
 /**
@@ -14,7 +15,15 @@ const router = express.Router();
  *      - Home
  */
 router.get('/', (req, res) => {
-  res.send('Api router works!');
+  console.log('connect ok !');
+  pool.query('SELECT * FROM users', (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result.rows);
+      res.send(result.rows);
+    }
+  });
 });
 /**
  * @swagger

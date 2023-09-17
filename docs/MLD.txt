@@ -1,0 +1,17 @@
+USERS(numUser ,fitstname, lastname, email, adress, cp, city, country, password, image_user, verified_email, roleId, created_At, upated_At)
+numUser : clé primaire de la table USERS
+
+ROLES(numRole, type, description, created_At, updated_At)
+numRole: clé primaire de la table ROLES
+
+ITEMS(numItems, name, description,userId,categoryId,TagsId, created_At, updated_At)
+numItems: clé primaire de la table ITEMS
+
+TAGS(numTags, name, description, created_At, updated_At)
+numTags: clé primaire de la table TAGS
+
+CATEGORIES(numCategories, name, description, created_At, updated_At)
+numCategories: clé primaire de la table CATEGORIES
+
+ORDERS(numOrders,title, description, status, quantity, price, total_price,total_quantity ,created_At, updated_At)
+numOrders: clé primaire de la table ORDERS
