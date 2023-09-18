@@ -7,7 +7,6 @@
 | visiteur  |   m'inscrire sur le site        |  devenir membre |
 | utilisateur  |   me déconnecter        |  sortir de mon compte |
 | utilisateur  | me connecter             |   Accéder à mon compte |
-| utilisateur  | centré          |    Aligné à droite |
 | visiteur/utilisateur  | accéder à la page d'accueil          |    visualiser les ressources |
 | visiteur/utilisateur | lancer une recherche |trouver des produits |
 | visiteur/utilisateur | accéder à la page informations légales | obtenir les informations du site
