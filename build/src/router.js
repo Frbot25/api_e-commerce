@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
         }
         else {
             console.log(result.rows);
-            res.send('connect ok !');
+            res.send(result.rows);
         }
     });
 });

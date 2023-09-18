@@ -3,7 +3,8 @@ import client from '../database';
 class Products {
   constructor(obj = {}) {
     for (const proname in obj) {
-      this[proname] = obj[proname];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (this as any)[proname] = (obj as any)[proname];
     }
   }
   static async findAllProducts() {

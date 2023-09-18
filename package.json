@@ -2,9 +2,10 @@
   "name": "base_api_nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "dev": "tsc && node ./build/index.js",
+    "dev": "tsc && node ./build/src/index.js",
+    "build": "tsc",
     "start": "node ./build/index.js",
     "nodemon": "tsc && nodemon ./build/index.js",
     "test": "jest --watchAll --verbose",
