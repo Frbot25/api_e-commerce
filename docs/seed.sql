@@ -48,4 +48,22 @@ VALUES (
         'red'
     );
 
+INSERT INTO
+    "items" (
+        "name",
+        "description",
+        "price",
+        "category_id"
+    )
+VALUES ('t-shirt', 't-shirt', 10, 1);
+
+INSERT INTO
+    "items" (
+        "name",
+        "description",
+        "price",
+        "category_id"
+    )
+VALUES ('pantalon', 'pantalon', 20, 1);
+
 COMMIT;

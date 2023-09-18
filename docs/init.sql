@@ -77,6 +77,8 @@ CREATE TABLE
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         "name" TEXT NOT NULL UNIQUE,
         "description" TEXT NOT NULL,
+        images TEXT ARRAY,
+        "price" INTEGER NOT NULL,
         userId INTEGER NOT NULL REFERENCES users(id),
         categoryId INTEGER NOT NULL REFERENCES categories(id),
         tagId INTEGER NOT NULL REFERENCES tags(id),

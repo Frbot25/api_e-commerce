@@ -1,17 +1,33 @@
-USERS(numUser ,fitstname, lastname, email, adress, cp, city, country, password, image_user, verified_email, roleId, created_At, upated_At)
-numUser : clé primaire de la table USERS
+USERS(numUser,firstname, lastname, email, adress,zip_code,city,country, password, imgage, verified_email,role_id, created_At, updated_At)
+numUser = Key primary of USERS
+foreign key = role_id of ROLES
 
 ROLES(numRole, type, description, created_At, updated_At)
-numRole: clé primaire de la table ROLES
+numRole = Key primary of ROLES
 
-ITEMS(numItems, name, description,userId,categoryId,TagsId, created_At, updated_At)
-numItems: clé primaire de la table ITEMS
+PRODUCTS(numProduct, name, description, images, visible, price,seller_id,category_id,tags_id, created_At, updated_At)
+numProduct = Key primary of PRODUCTS
+foreign key = seller_id of SELLERS
+foreign key = category_id of PRODUCTS
+foreign key = tags_id of PRODUCTS
 
-TAGS(numTags, name, description, created_At, updated_At)
-numTags: clé primaire de la table TAGS
+TAGS(numTags,name,description,color,created_At, updated_At)
+numTags = Key primary of TAGS
 
-CATEGORIES(numCategories, name, description, created_At, updated_At)
-numCategories: clé primaire de la table CATEGORIES
+CATEGORIES(numCategory,name,description,color,created_At, updated_At)
+numCategory = Key primary of CATEGORIES
 
-ORDERS(numOrders,title, description, status, quantity, price, total_price,total_quantity ,created_At, updated_At)
-numOrders: clé primaire de la table ORDERS
+SELLERS(numSeller,name, zio_code, city, state, country,created_At,updated_At)
+numSeller = Key primary of SELLERS
+
+
+STATUS(numStatus, type, description,created_At,upated_At)
+numStatus = Key primary of STATUS
+
+ORDERS(numOrder, order_status, order_estimated_delivery, order_delivered_carrier_date, order_delivered_customer_date,user_id, created_At, updated_At)
+numOrder = Key primary of ORDERS
+foreign key = order_status of STATUS
+foreign key = user_id of USERS
+
+ORDERS_HAS_PRODUCTS(order_id,product_id)
+
