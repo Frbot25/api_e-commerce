@@ -1,18 +1,52 @@
 BEGIN;
 
 DROP TABLE
-    IF EXISTS users,
-    tags_has_items,
-    roles,
-    tags,
-    categories,
-    orders,
-    items;
+    IF EXISTS "users",
+    "roles",
+    "sellers",
+    "status",
+    "tags",
+    "categories",
+    "orders",
+    "products",
+    "orders_has_products";
 
 CREATE TABLE
     "roles"(
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         "type" TEXT NOT NULL UNIQUE DEFAULT 'utilisateur',
+        "description" TEXT,
+        created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_At TIMESTAMPTZ
+    );
+
+CREATE TABLE
+    "sellers"(
+        id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        "name" TEXT NOT NULL UNIQUE,
+        "description" TEXT,
+        "siret" TEXT NOT NULL UNIQUE,
+        "firstname" TEXT NOT NULL,
+        "lastname" TEXT NOT NULL,
+        "iban" TEXT NOT NULL,
+        "bic" TEXT NOT NULL,
+        "adress" TEXT NOT NULL,
+        "city" TEXT NOT NULL,
+        "zip_code" TEXT NOT NULL,
+        "country" TEXT NOT NULL,
+        "phone" TEXT NOT NULL,
+        "email" TEXT NOT NULL UNIQUE,
+        "image" TEXT,
+        "verified" BOOLEAN NOT NULL DEFAULT FALSE,
+        created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_At TIMESTAMPTZ
+    );
+
+CREATE TABLE
+    "status"(
+        id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        "name" TEXT NOT NULL DEFAULT 'en cours',
+        "description" TEXT,
         created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
         updated_At TIMESTAMPTZ
     );
@@ -40,15 +74,34 @@ CREATE TABLE
 CREATE TABLE
     "orders"(
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        "title" TEXT NOT NULL UNIQUE,
-        "description" TEXT,
-        "status" TEXT NOT NULL DEFAULT 'en cours',
-        "quantity" INTEGER NOT NULL DEFAULT 1,
-        "price" INTEGER NOT NULL,
-        "images" TEXT ARRAY,
-        constraint limit_images check (cardinality(images) <= 4),
+        "order_estimated_delivery" TIMESTAMPTZ,
+        "order_delivered_carrier_date" TIMESTAMPTZ,
+        "order_delivered_customer_date" TIMESTAMPTZ,
+        "user_id" INTEGER NOT NULL REFERENCES users(id),
+        "status_id" INTEGER NOT NULL REFERENCES status(id),
         created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
         updated_At TIMESTAMPTZ
+    );
+
+CREATE TABLE
+    "products"(
+        id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        "name" TEXT NOT NULL UNIQUE,
+        "description" TEXT NOT NULL,
+        "images" TEXT ARRAY,
+        "price" INTEGER NOT NULL,
+        "quantity" INTEGER NOT NULL,
+        "weight" INTEGER NOT NULL,
+        "width" INTEGER NOT NULL,
+        "height" INTEGER NOT NULL,
+        "length" INTEGER NOT NULL,
+        "available" BOOLEAN NOT NULL DEFAULT TRUE,
+        "category_id" INTEGER NOT NULL REFERENCES categories(id),
+        "tag_id" INTEGER NOT NULL REFERENCES tags(id),
+        "seller_id" INTEGER NOT NULL REFERENCES sellers(id),
+        "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        "updated_at" TIMESTAMPTZ,
+        constraint limit_images check (cardinality(images) <= 4)
     );
 
 CREATE TABLE
@@ -56,41 +109,27 @@ CREATE TABLE
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         "firstname" TEXT NOT NULL,
         "lastname" TEXT NOT NULL,
-        email TEXT NOT NULL UNIQUE,
+        "email" TEXT NOT NULL UNIQUE,
         "adress" TEXT NOT NULL,
         "city" TEXT NOT NULL,
         "zip_code" TEXT NOT NULL,
         "country" TEXT NOT NULL,
         "phone" TEXT NOT NULL,
         "password" TEXT NOT NULL,
-        "avatar" TEXT,
+        "image" TEXT,
         "verified" BOOLEAN NOT NULL DEFAULT FALSE,
         "reset_password_token" TEXT,
         "reset_password_expires" TIMESTAMPTZ,
-        role_id INTEGER NOT NULL REFERENCES roles(id),
+        "role_id" INTEGER NOT NULL REFERENCES roles(id),
         created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
         updated_At TIMESTAMPTZ
     );
 
 CREATE TABLE
-    "items"(
+    orders_has_products(
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        "name" TEXT NOT NULL UNIQUE,
-        "description" TEXT NOT NULL,
-        images TEXT ARRAY,
-        "price" INTEGER NOT NULL,
-        userId INTEGER NOT NULL REFERENCES users(id),
-        categoryId INTEGER NOT NULL REFERENCES categories(id),
-        tagId INTEGER NOT NULL REFERENCES tags(id),
-        created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-        updated_At TIMESTAMPTZ
-    );
-
-CREATE TABLE
-    tags_has_items(
-        id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        "tag_id" INTEGER NOT NULL REFERENCES "tags"("id") ON DELETE CASCADE,
-        "itemId" INTEGER NOT NULL REFERENCES "items"("id") ON DELETE CASCADE,
+        "order_id" INTEGER NOT NULL REFERENCES "orders"("id") ON DELETE CASCADE,
+        "product_id" INTEGER NOT NULL REFERENCES "products"("id") ON DELETE CASCADE,
         "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW()
     );
 

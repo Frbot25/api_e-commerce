@@ -9,22 +9,22 @@ ROLES:type, description, created_At, updated_At
 :
 :
 Obtien,0N PRODUCTS, 1N ORDERS
-ORDERS:title, description,total_quantity, total_price,created_At, updated_At
+ORDERS:order_estimated_delivery, order_delivered_carrier_date,order_delivered_customer_date,created_At, updated_At
 HAS, 11 ORDERS, 0N USERS
-USERS:firstname, lastname, email, adress, cp, city, country, password,image_user, verified_email, created_At, updated_At
+USERS:firstname, lastname, email, adress, zip_code, city, country,phone, password,image, verified, created_At, updated_At
 A POUR,11 USERS, 0N ROLES
 
 CATEGORIES:title, description,color, created_At, updated_At
 AS1, 0N CATEGORIES, 11 PRODUCTS
-PRODUCTS:name, description,images,visible,price, created_At, updated_At
+PRODUCTS:name, description,images,visible,price,quantity,weight,height,length,available, created_At, updated_At
 Belong TO,0N SELLERS, 11 PRODUCTS
-SELLERS:name,zip_code, city, state, country, created_At,updated_At
+SELLERS:name,description,siret,firstname,lastname,iban, bic,adress, zip_code, city, state, country,phone,email,image,verified, created_At,updated_At
 :
 :
 
 :
 :
-AS,01 PRODUCTS, 1N TAGS
+AS,01 PRODUCTS, 0N TAGS
 TAGS:name, description,color, created_At, updated_At
 :
 :

@@ -17,7 +17,7 @@ numTags = Key primary of TAGS
 CATEGORIES(numCategory,name,description,color,created_At, updated_At)
 numCategory = Key primary of CATEGORIES
 
-SELLERS(numSeller,name, zio_code, city, state, country,created_At,updated_At)
+SELLERS(numSeller,name,adress, zip_code, city, state, country,created_At,updated_At)
 numSeller = Key primary of SELLERS
 
 
