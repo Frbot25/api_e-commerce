@@ -37,6 +37,8 @@ const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/api', router);
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`);
 });
+
+export default server;

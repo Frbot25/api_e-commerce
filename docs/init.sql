@@ -72,18 +72,6 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    "orders"(
-        id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        "order_estimated_delivery" TIMESTAMPTZ,
-        "order_delivered_carrier_date" TIMESTAMPTZ,
-        "order_delivered_customer_date" TIMESTAMPTZ,
-        "user_id" INTEGER NOT NULL REFERENCES users(id),
-        "status_id" INTEGER NOT NULL REFERENCES status(id),
-        created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-        updated_At TIMESTAMPTZ
-    );
-
-CREATE TABLE
     "products"(
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         "name" TEXT NOT NULL UNIQUE,
@@ -96,8 +84,8 @@ CREATE TABLE
         "height" INTEGER NOT NULL,
         "length" INTEGER NOT NULL,
         "available" BOOLEAN NOT NULL DEFAULT TRUE,
-        "category_id" INTEGER NOT NULL REFERENCES categories(id),
-        "tag_id" INTEGER NOT NULL REFERENCES tags(id),
+        "category_id" INTEGER NOT NULL REFERENCES "categories"(id),
+        "tag_id" INTEGER NOT NULL REFERENCES "tags"(id),
         "seller_id" INTEGER NOT NULL REFERENCES sellers(id),
         "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
         "updated_at" TIMESTAMPTZ,
@@ -107,20 +95,32 @@ CREATE TABLE
 CREATE TABLE
     "users"(
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        "firstname" TEXT NOT NULL,
-        "lastname" TEXT NOT NULL,
+        "firstname" TEXT,
+        "lastname" TEXT,
         "email" TEXT NOT NULL UNIQUE,
-        "adress" TEXT NOT NULL,
-        "city" TEXT NOT NULL,
-        "zip_code" TEXT NOT NULL,
-        "country" TEXT NOT NULL,
-        "phone" TEXT NOT NULL,
+        "adress" TEXT,
+        "city" TEXT,
+        "zip_code" INTEGER,
+        "country" TEXT,
+        "phone" TEXT,
         "password" TEXT NOT NULL,
         "image" TEXT,
         "verified" BOOLEAN NOT NULL DEFAULT FALSE,
         "reset_password_token" TEXT,
         "reset_password_expires" TIMESTAMPTZ,
-        "role_id" INTEGER NOT NULL REFERENCES roles(id),
+        "role_id" INTEGER NOT NULL REFERENCES "roles"(id) DEFAULT 2,
+        created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_At TIMESTAMPTZ
+    );
+
+CREATE TABLE
+    "orders"(
+        id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        "order_estimated_delivery" TIMESTAMPTZ,
+        "order_delivered_carrier_date" TIMESTAMPTZ,
+        "order_delivered_customer_date" TIMESTAMPTZ,
+        "user_id" INTEGER NOT NULL REFERENCES "users"(id),
+        "status_id" INTEGER NOT NULL REFERENCES status(id),
         created_At TIMESTAMPTZ NOT NULL DEFAULT NOW(),
         updated_At TIMESTAMPTZ
     );

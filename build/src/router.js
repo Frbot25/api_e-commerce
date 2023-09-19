@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const joi_1 = require("./services/joi");
-const database_1 = __importDefault(require("./database"));
+const productsController_1 = __importDefault(require("./controllers/productsController"));
+const usersController_1 = __importDefault(require("./controllers/usersController"));
 const router = express_1.default.Router();
 /**
  * @swagger
@@ -16,18 +16,17 @@ const router = express_1.default.Router();
  *     tags:
  *      - Home
  */
-router.get('/', (req, res) => {
-    console.log('connect ok !');
-    database_1.default.query('SELECT * FROM users', (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            console.log(result.rows);
-            res.send(result.rows);
-        }
-    });
-});
+router.get('/products', productsController_1.default.findAllProducts);
+/**
+ * @swagger
+ * paths:
+ *  /api:
+ *   get:
+ *     summary: Use to request home
+ *     tags:
+ *      - Home
+ */
+router.get('/products/:id', productsController_1.default.findProductById);
 /**
  * @swagger
  * paths:
@@ -42,23 +41,7 @@ router.get('/', (req, res) => {
  *         '500':
  *           description: Internal server error
  */
-router.post('/login', (req, res) => {
-    try {
-        const validate = (0, joi_1.validateLogin)(req.body);
-        if (validate.error) {
-            console.log(req.body);
-            console.log(validate);
-            res.status(400).json({ 'Login failed': validate.error.message });
-        }
-        else {
-            console.log(validate);
-            res.send('Login successful');
-        }
-    }
-    catch (e) {
-        console.log(e);
-    }
-});
+router.post('/signin', usersController_1.default.signin);
 /**
  * @swagger
  * paths:
@@ -73,21 +56,5 @@ router.post('/login', (req, res) => {
  *         '500':
  *           description: Internal server error
  */
-router.post('/register', (req, res) => {
-    try {
-        const validate = (0, joi_1.validateLogin)(req.body);
-        if (validate.error) {
-            console.log(req.body);
-            console.log(validate);
-            res.status(400).json({ 'Register failed': validate.error.message });
-        }
-        else {
-            console.log(validate);
-            res.send('Register successful');
-        }
-    }
-    catch (e) {
-        console.log(e);
-    }
-});
+router.post('/signup', usersController_1.default.signup);
 exports.default = router;

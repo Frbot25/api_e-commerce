@@ -1,9 +1,8 @@
 import express from 'express';
-import { validateLogin } from './services/joi';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ObjectSchema } from 'joi';
-import pool from './database';
-
+import ProductController from './controllers/productsController';
+import userController from './controllers/usersController';
 const router = express.Router();
 /**
  * @swagger
@@ -14,17 +13,17 @@ const router = express.Router();
  *     tags:
  *      - Home
  */
-router.get('/', (req, res) => {
-  console.log('connect ok !');
-  pool.query('SELECT * FROM users', (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(result.rows);
-      res.send(result.rows);
-    }
-  });
-});
+router.get('/products', ProductController.findAllProducts);
+/**
+ * @swagger
+ * paths:
+ *  /api:
+ *   get:
+ *     summary: Use to request home
+ *     tags:
+ *      - Home
+ */
+router.get('/products/:id', ProductController.findProductById);
 /**
  * @swagger
  * paths:
@@ -39,21 +38,7 @@ router.get('/', (req, res) => {
  *         '500':
  *           description: Internal server error
  */
-router.post('/login', (req, res) => {
-  try {
-    const validate = validateLogin(req.body);
-    if (validate.error) {
-      console.log(req.body);
-      console.log(validate);
-      res.status(400).json({ 'Login failed': validate.error.message });
-    } else {
-      console.log(validate);
-      res.send('Login successful');
-    }
-  } catch (e) {
-    console.log(e);
-  }
-});
+router.post('/signin', userController.signin);
 /**
  * @swagger
  * paths:
@@ -68,20 +53,6 @@ router.post('/login', (req, res) => {
  *         '500':
  *           description: Internal server error
  */
-router.post('/register', (req, res) => {
-  try {
-    const validate = validateLogin(req.body);
-    if (validate.error) {
-      console.log(req.body);
-      console.log(validate);
-      res.status(400).json({ 'Register failed': validate.error.message });
-    } else {
-      console.log(validate);
-      res.send('Register successful');
-    }
-  } catch (e) {
-    console.log(e);
-  }
-});
+router.post('/signup', userController.signup);
 
 export default router;

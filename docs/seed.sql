@@ -49,21 +49,95 @@ VALUES (
     );
 
 INSERT INTO
-    "items" (
+    "sellers" (
         "name",
         "description",
-        "price",
-        "category_id"
+        "siret",
+        "firstname",
+        "lastname",
+        "iban",
+        "bic",
+        "adress",
+        "city",
+        "zip_code",
+        "country",
+        "phone",
+        "email",
+        "image"
     )
-VALUES ('t-shirt', 't-shirt', 10, 1);
+VALUES (
+        'Dupont SAS',
+        'entreprise de vente de vetements',
+        '123456789',
+        'Dupont',
+        'Eric',
+        'FR7630001007941234567890185',
+        'BDFEFR2T',
+        '8 rue du lavoir',
+        'Lyon',
+        '69000',
+        'France',
+        '0381000000',
+        'email@dupont.com',
+        'https://picsum.photos/100/200'
+    );
 
 INSERT INTO
-    "items" (
+    "products" (
         "name",
         "description",
         "price",
-        "category_id"
+        "quantity",
+        "weight",
+        "width",
+        "height",
+        "length",
+        "available",
+        "category_id",
+        "tag_id",
+        "seller_id"
     )
-VALUES ('pantalon', 'pantalon', 20, 1);
+VALUES (
+        't-shirt',
+        't-shirt',
+        10,
+        50,
+        100,
+        100,
+        100,
+        100,
+        TRUE,
+        1,
+        1,
+        1
+    );
+
+INSERT INTO
+    "products" (
+        "name",
+        "description",
+        "price",
+        "quantity",
+        "weight",
+        "width",
+        "height",
+        "length",
+        "category_id",
+        "tag_id",
+        "seller_id"
+    )
+VALUES (
+        'pantalon',
+        'pantalon',
+        10,
+        50,
+        100,
+        100,
+        100,
+        100,
+        1,
+        1,
+        1
+    );
 
 COMMIT;
