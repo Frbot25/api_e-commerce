@@ -8,7 +8,7 @@ const UserController = {
       const password = request!.body!.password;
       const user = await new User({ email, password }).signin();
       if (user) {
-        const token = Token.generateToken(user);
+        const token = Token.makeToken(user);
         response.status(200).json({ user, token });
       }
     } catch (error) {

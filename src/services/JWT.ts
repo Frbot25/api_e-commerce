@@ -1,31 +1,71 @@
 import JWT from 'jsonwebtoken';
-import e from 'express';
-export default class Token {
-  static generateToken(user: object) {
-    const token = JWT.sign(user, process.env.JWT_SECRET as string, {
-      expiresIn: '1h',
-    });
-    return token;
-  }
-  static verifyToken(
-    request: e.Request,
-    response: e.Response,
-    next: e.NextFunction,
-  ) {
+
+export default {
+  // access token
+  makeToken: (user) => {
     try {
-      const token = request.headers.authorization?.split(' ')[1];
-      if (!token) {
-        throw new Error('Token not found');
-      }
-      const decodedToken = JWT.verify(token, process.env.JWT_SECRET as string);
-      const userId = decodedToken.userId;
-      if (request.body.userId && request.body.userId !== userId) {
-        throw new Error('Invalid user ID');
-      } else {
-        next();
-      }
+      return JWT.sign(
+        //payload
+        {
+          user,
+        },
+        //le mot de passe de chiffrement
+        process.env.JWT_SECRET,
+        //header
+        {
+          algorithm: 'HS256',
+          expiresIn: '30m',
+        },
+      );
     } catch (error) {
-      response.status(401).json({ error: error.message });
+      console.log(error);
+      throw error;
     }
-  }
-}
+  },
+  //vérification access token
+  validateToken: (token) => {
+    try {
+      return JWT.verify(token, process.env.JWT_SECRET, {
+        algorithms: ['HS256'],
+      });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+  refreshToken: (user) => {
+    try {
+      console.log(
+        'je suis dans le service refreshtoken et voila les infos de userId:',
+        user,
+      );
+      return JWT.sign(
+        //payload
+        {
+          user,
+        },
+        //le mot de passe de chiffrement
+        process.env.JWT_REFRESHTOKEN,
+        //header
+        {
+          algorithm: 'HS256',
+          expiresIn: '7d',
+        },
+      );
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+  //vérification access token
+  validateRefreshToken: (token) => {
+    try {
+      return JWT.verify(token, process.env.JWT_REFRESHTOKEN, {
+        algorithms: ['HS256'],
+      });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+};

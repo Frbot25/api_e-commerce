@@ -1,8 +1,10 @@
 import express from 'express';
+import checkJwt from './middlewares/checkJwt';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ObjectSchema } from 'joi';
 import ProductController from './controllers/productsController';
 import userController from './controllers/usersController';
+import isAdmin from './middlewares/checkIsAdmin';
 const router = express.Router();
 /**
  * @swagger
@@ -55,4 +57,8 @@ router.post('/signin', userController.signin);
  */
 router.post('/signup', userController.signup);
 
+// test route verify token
+router.get('/test', checkJwt, isAdmin, (request, response) => {
+  response.status(200).json({ message: 'test' });
+});
 export default router;
