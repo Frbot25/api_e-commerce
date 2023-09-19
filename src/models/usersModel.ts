@@ -61,6 +61,22 @@ class Users {
       throw new Error(error.message);
     }
   }
+  static async findUserById(id: number) {
+    console.log('id:', id);
+    try {
+      const result = await client.query(`SELECT * FROM "users" WHERE id=$1`, [
+        id,
+      ]);
+      if (!result) {
+        throw new Error('User not found');
+      } else {
+        return result.rows[0];
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+  }
 }
 
 export default Users;

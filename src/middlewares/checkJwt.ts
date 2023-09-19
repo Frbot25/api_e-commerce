@@ -28,8 +28,8 @@ export default (request: Request, response: Response, next: NextFunction) => {
     );
     console.log('payload: ', payload);
     //placer l'id dans request
-    console.log('request.user:', typeof request.user);
     request.user = payload.user;
+    console.log('request.user:', request.user);
     //passer au middleware suivant
     next();
   } catch (error) {

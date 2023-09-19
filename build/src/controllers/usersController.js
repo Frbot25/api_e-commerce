@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const usersModel_1 = __importDefault(require("../models/usersModel"));
 const usersShema_1 = __importDefault(require("../shemas/usersShema"));
+const JWT_1 = __importDefault(require("../services/JWT"));
 const UserController = {
     signin: async (request, response) => {
         try {
@@ -12,7 +13,8 @@ const UserController = {
             const password = request.body.password;
             const user = await new usersModel_1.default({ email, password }).signin();
             if (user) {
-                response.status(200).json(user);
+                const token = JWT_1.default.makeToken(user);
+                response.status(200).json({ user, token });
             }
         }
         catch (error) {

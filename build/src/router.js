@@ -4,8 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const checkJwt_1 = __importDefault(require("./middlewares/checkJwt"));
 const productsController_1 = __importDefault(require("./controllers/productsController"));
 const usersController_1 = __importDefault(require("./controllers/usersController"));
+const checkIsAdmin_1 = __importDefault(require("./middlewares/checkIsAdmin"));
 const router = express_1.default.Router();
 /**
  * @swagger
@@ -57,4 +59,8 @@ router.post('/signin', usersController_1.default.signin);
  *           description: Internal server error
  */
 router.post('/signup', usersController_1.default.signup);
+// test route verify token
+router.get('/test', checkJwt_1.default, checkIsAdmin_1.default, (request, response) => {
+    response.status(200).json({ message: 'test' });
+});
 exports.default = router;
