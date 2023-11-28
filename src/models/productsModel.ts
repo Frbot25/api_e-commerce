@@ -30,8 +30,9 @@ class Products {
   }
   async createProduct() {
     try {
+      const { name, price } = this;
       const { rows } = await client.query(
-        `INSERT INTO products(name, price) VALUES($1, $2) RETURNING *`,
+        `INSERT INTO products(${name}, ${price}) VALUES($1, $2) RETURNING *`,
         [this.name, this.price],
       );
       return rows[0];
